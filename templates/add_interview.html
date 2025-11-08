@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>参加面试：{{ company.name }}</h2>
+
+<form method="post">
+    <div class="mb-3">
+        <label class="form-label">面试轮次</label>
+        <select name="round" class="form-select" required>
+            <option value="一面">一面</option>
+            <option value="二面">二面</option>
+            <option value="三面">三面</option>
+        </select>
+    </div>
+
+    <h4 class="mt-4">请填写本轮面试的问题与回答</h4>
+    <div id="qa-list">
+        <div class="qa-pair p-3 mb-3 border rounded">
+            <label class="form-label">问题（必填）</label>
+            <input type="text" name="questions[]" class="form-control" required>
+            <label class="form-label mt-2">回答（选填）</label>
+            <textarea name="answers[]" class="form-control" rows="2"></textarea>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-outline-secondary" onclick="addQA()">+ 添加另一个问题</button>
+    <br><br>
+
+    <button type="submit" class="btn btn-primary">提交面试记录</button>
+    <a href="{{ url_for('company_detail', cid=company.id) }}" class="btn btn-secondary">取消</a>
+</form>
+
+<script>
+function addQA() {
+    const list = document.getElementById('qa-list');
+    const div = document.createElement('div');
+    div.className = 'qa-pair p-3 mb-3 border rounded';
+    div.innerHTML = `
+        <hr>
+        <label class="form-label">问题（必填）</label>
+        <input type="text" name="questions[]" class="form-control" required>
+        <label class="form-label mt-2">回答（选填）</label>
+        <textarea name="answers[]" class="form-control" rows="2"></textarea>
+    `;
+    list.appendChild(div);
+}
+</script>
+{% endblock %}

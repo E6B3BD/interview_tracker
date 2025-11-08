@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2>公司列表</h2>
+  <a href="{{ url_for('add_company_route') }}" class="btn btn-success">+ 添加公司</a>
+</div>
+
+{% if companies %}
+  <div class="list-group">
+    {% for c in companies %}
+    <div class="list-group-item list-group-item-action flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">
+          {{ c.name }}  <!-- 纯文本，不再包裹在 <a> 中 -->
+        </h5>
+        <small>
+          {% if c.nature == '自研' %}🏭 自研{% elif c.nature == '外包' %}🧾 外包{% else %}{{ c.nature or '—' }}{% endif %}
+        </small>
+      </div>
+      <p class="mb-1 text-muted">
+        📍 {{ c.city or '未知城市' }}
+      </p>
+      <p class="mb-1">
+        📌 {{ c.description[:80] ~ ('...' if c.description|length > 80 else '') }}
+      </p>
+      <div class="mt-2">
+        <!-- 新增“详情”按钮 -->
+        <a href="{{ url_for('company_detail', cid=c.id) }}" class="btn btn-sm btn-outline-info">详情</a>
+        
+        <a href="{{ url_for('add_interview', cid=c.id) }}" class="btn btn-sm btn-outline-primary">参加面试</a>
+        
+        {% if session.role == 'root' %}
+        <a href="{{ url_for('delete_company_route', cid=c.id) }}"
+           class="btn btn-sm btn-outline-danger"
+           onclick="return confirm('确定删除公司及所有记录？')">删除</a>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="text-muted">暂无公司信息，<a href="{{ url_for('add_company_route') }}">立即添加</a>。</p>
+{% endif %}
+
+{% endblock %}

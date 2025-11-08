@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow-sm p-4">
+      <h2 class="text-center mb-4 fw-bold text-primary">添加新公司</h2>
+
+      <!-- Flash 消息 -->
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for msg in messages %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ msg }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form method="POST">
+        <!-- 公司名称 -->
+        <div class="mb-3">
+          <label for="name" class="form-label">公司名称 *</label>
+          <input type="text" 
+                 id="name"
+                 name="name" 
+                 class="form-control" 
+                 placeholder="例如：字节跳动" 
+                 required 
+                 autofocus>
+        </div>
+
+        <!-- 城市 -->
+        <div class="mb-3">
+          <label for="city" class="form-label">城市</label>
+          <input type="text" 
+                 id="city"
+                 name="city" 
+                 class="form-control" 
+                 placeholder="例如：北京、上海">
+        </div>
+
+        <!-- 公司性质（单选按钮） -->
+        <div class="mb-3">
+          <label class="form-label d-block">公司性质 *</label>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="nature" id="nature_ziyan" value="自研" required>
+            <label class="form-check-label" for="nature_ziyan">🏭 自研</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="nature" id="nature_waibao" value="外包" required>
+            <label class="form-check-label" for="nature_waibao">🧾 外包</label>
+          </div>
+        </div>
+
+        <!-- 地址（URL 类型） -->
+        <div class="mb-3">
+          <label for="address" class="form-label">官网地址</label>
+          <input type="url" 
+                 id="address"
+                 name="address" 
+                 class="form-control" 
+                 placeholder="https://example.com">
+          <div class="form-text text-muted">请输入公司官网或招聘页面链接（可选）</div>
+        </div>
+
+        <!-- 描述 -->
+        <div class="mb-3">
+          <label for="description" class="form-label">备注/描述</label>
+          <textarea 
+            id="description"
+            name="description" 
+            class="form-control" 
+            rows="3"
+            placeholder="例如：主要做 AI 方向，技术栈偏 Go..."></textarea>
+        </div>
+
+        <!-- 提交按钮 -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <a href="{{ url_for('index') }}" class="btn btn-secondary me-md-2">返回首页</a>
+          <button type="submit" class="btn btn-success">提交公司</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

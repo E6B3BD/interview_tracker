@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ company.name }} 的面试题库</h2>
+<p class="text-muted">
+    📍 {{ company.city }} | 
+    {% if company.nature == '自研' %}🏭 自研{% else %}🧾 外包{% endif %}
+</p>
+
+<a href="{{ url_for('add_interview', cid=company.id) }}" class="btn btn-primary mb-3">+ 提交新问题</a>
+
+{% if records %}
+<table class="table table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>提问者</th>
+            <th>问题</th>
+            <th>回答</th>
+            <th>时间</th>
+            {% if session.role == 'root' %}<th>操作</th>{% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in records %}
+        <tr>
+            <td>{{ r.username }}</td>
+            <td>{{ r.question }}</td>
+            <td>{{ r.answer or '（未填写）' }}</td>
+            <td>{{ r.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+            {% if session.role == 'root' %}
+            <td>
+                <a href="{{ url_for('delete_interview_route', rid=r.id) }}" 
+                   class="btn btn-sm btn-outline-danger"
+                   onclick="return confirm('确定删除？')">删</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class="text-muted">暂无面试记录，快来提交第一个问题吧！</p>
+{% endif %}
+
+<a href="{{ url_for('index') }}" class="btn btn-secondary mt-3">← 返回首页</a>
+{% endblock %}

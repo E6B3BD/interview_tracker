@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow-sm p-4">
+      <h2 class="text-center mb-4 fw-bold text-primary">📝 编辑面试记录</h2>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for msg in messages %}
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+              {{ msg }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <form method="POST">
+        <!-- 公司名称（只读） -->
+        <div class="mb-3">
+          <label class="form-label">公司</label>
+          <input type="text" class="form-control" value="{{ company.name }}" disabled>
+        </div>
+
+        <!-- 轮次 -->
+        <div class="mb-3">
+          <label for="round" class="form-label">面试轮次 *</label>
+          <input type="text"
+                 id="round"
+                 name="round"
+                 class="form-control"
+                 value="{{ orig_round }}"
+                 placeholder="例如：一面、二面、HR面"
+                 required>
+        </div>
+
+        <!-- 问题 -->
+        <div class="mb-3">
+          <label for="question" class="form-label">问题 *</label>
+          <textarea
+            id="question"
+            name="question"
+            class="form-control"
+            rows="3"
+            placeholder="请输入面试问题"
+            required>{{ orig_question }}</textarea>
+        </div>
+
+        <!-- 答案 -->
+        <div class="mb-3">
+          <label for="answer" class="form-label">回答</label>
+          <textarea
+            id="answer"
+            name="answer"
+            class="form-control"
+            rows="4"
+            placeholder="你的回答（可选）">{{ orig_answer }}</textarea>
+        </div>
+
+        <!-- 按钮 -->
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <a href="{{ url_for('company_detail', cid=company.id) }}" class="btn btn-secondary me-md-2">取消</a>
+          <button type="submit" class="btn btn-warning">更新记录</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
