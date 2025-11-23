@@ -33,10 +33,11 @@
 
         <!-- 城市 -->
         <div class="mb-3">
-          <label for="city" class="form-label">城市</label>
+          <label for="city" class="form-label">城市*</label>
           <input type="text" 
                  id="city"
-                 name="city" 
+                 name="city"
+                 required 
                  class="form-control" 
                  placeholder="例如：北京、上海">
         </div>
@@ -56,22 +57,24 @@
 
         <!-- 地址（URL 类型） -->
         <div class="mb-3">
-          <label for="address" class="form-label">官网地址</label>
+          <label for="address" class="form-label">官网地址*</label>
           <input type="url" 
                  id="address"
                  name="address" 
-                 class="form-control" 
+                 class="form-control"
+                 required 
                  placeholder="https://example.com">
-          <div class="form-text text-muted">请输入公司官网或招聘页面链接（可选）</div>
+          <div class="form-text text-muted">请输入公司官网或招聘页面链接（必写）</div>
         </div>
 
         <!-- 描述 -->
         <div class="mb-3">
-          <label for="description" class="form-label">备注/描述</label>
+          <label for="description" class="form-label">备注/描述*</label>
           <textarea 
             id="description"
             name="description" 
             class="form-control" 
+            required
             rows="3"
             placeholder="例如：主要做 AI 方向，技术栈偏 Go..."></textarea>
         </div>

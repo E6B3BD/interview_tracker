@@ -5,7 +5,7 @@ import bcrypt
 DB_CONFIG = {
     'host': 'localhost',
     'user': 'root',
-    'password': '123456',          # ← 保持和你原来一致
+    'password': '123456',          
     'database': 'interview_system',
     'charset': 'utf8mb4'
 }

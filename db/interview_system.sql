@@ -32,24 +32,6 @@ CREATE TABLE `companies`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for interview_records
--- ----------------------------
-DROP TABLE IF EXISTS `interview_records`;
-CREATE TABLE `interview_records`  (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `company_id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `round` enum('一面','二面','三面') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `question` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `answer` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE INDEX `unique_user_company_round`(`user_id` ASC, `company_id` ASC, `round` ASC) USING BTREE,
-  INDEX `company_id`(`company_id` ASC) USING BTREE,
-  CONSTRAINT `interview_records_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  CONSTRAINT `interview_records_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
 -- Table structure for interviews
 -- ----------------------------
 DROP TABLE IF EXISTS `interviews`;

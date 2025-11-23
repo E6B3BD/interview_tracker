@@ -1,6 +1,6 @@
 # app.py
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from models import *  # ← 导入上面的 models.py
+from models import *  
 import re
 
 app = Flask(__name__)
