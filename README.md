@@ -1,5 +1,7 @@
 ### interview_tracker【面试追踪】
 
+![](./image/面试记录详情.png)
+
 ##### 配置项目
 
 拉取代码
